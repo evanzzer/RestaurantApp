@@ -5,10 +5,16 @@ import 'package:restaurant_app/data/model/restaurant.dart';
 import 'package:restaurant_app/data/model/restaurant_details.dart';
 
 class ApiService {
-  static final String _baseUrl = 'https://restaurant-api.dicoding.dev/';
+  final String baseUrl = 'https://restaurant-api.dicoding.dev/'; // Made public for testing purposes
+  http.Client _client = new http.Client(); // Made public for testing purposes
+
+  http.Client get client => _client;
+  void setClientForTest(http.Client client) {
+    _client = client;
+  }
 
   Future<RestaurantResult> fetchList() async {
-    final response = await http.get("${_baseUrl}list/");
+    final response = await _client.get("${baseUrl}list/");
     if (response.statusCode == 200) {
       return RestaurantResult.fromJson(json.decode(response.body));
     } else {
@@ -17,7 +23,7 @@ class ApiService {
   }
 
   Future<SearchResult> fetchSearch(String query) async {
-    final response = await http.get("${_baseUrl}search?q=$query");
+    final response = await _client.get("${baseUrl}search?q=$query");
     if (response.statusCode == 200) {
       return SearchResult.fromJson(json.decode(response.body));
     } else {
@@ -26,8 +32,8 @@ class ApiService {
   }
 
   Future<DetailResult> fetchDetails(String id) async {
-    final response = await http.get("${_baseUrl}detail/$id");
-    print("${_baseUrl}detail/$id");
+    final response = await _client.get("${baseUrl}detail/$id");
+    print("${baseUrl}detail/$id");
     if (response.statusCode == 200) {
       return DetailResult.fromJson(json.decode(response.body));
     } else {
@@ -35,7 +41,7 @@ class ApiService {
     }
   }
 
-  String fetchPictureMediumUrl(String pictureId) => "${_baseUrl}images/medium/$pictureId";
+  String fetchPictureMediumUrl(String pictureId) => "${baseUrl}images/medium/$pictureId";
 
-  String fetchPictureLargeUrl(String pictureId) => "${_baseUrl}images/large/$pictureId";
+  String fetchPictureLargeUrl(String pictureId) => "${baseUrl}images/large/$pictureId";
 }

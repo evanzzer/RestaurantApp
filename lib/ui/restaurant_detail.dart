@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_app/data/api/api_service.dart';
 import 'package:restaurant_app/data/model/restaurant.dart';
 import 'package:restaurant_app/data/model/restaurant_details.dart';
+import 'package:restaurant_app/provider/database_provider.dart';
 import 'package:restaurant_app/provider/details_provider.dart';
 import 'package:restaurant_app/utils/result_state.dart';
 
@@ -64,6 +65,22 @@ class RestaurantDetailPage extends StatelessWidget {
           SliverAppBar(
             pinned: true,
             expandedHeight: 200,
+            actions: [
+              Consumer<DatabaseProvider>(
+                builder: (context, provider, _) {
+                  return FutureBuilder<bool>(
+                    future: provider.isFavorited(restaurant.id),
+                    builder: (context, snapshot) {
+                      var isFavorited = snapshot.data ?? false;
+                      return IconButton(
+                        icon: isFavorited ? Icon(Icons.favorite, color: Colors.white) : Icon(Icons.favorite_border, color: Colors.white),
+                        onPressed: () => isFavorited ? provider.removeFavorite(restaurant.id) : provider.addFavorite(restaurant),
+                      );
+                    },
+                  );
+                },
+              ),
+            ],
             flexibleSpace: FlexibleSpaceBar(
               background: Stack(
                 alignment: Alignment.center,
