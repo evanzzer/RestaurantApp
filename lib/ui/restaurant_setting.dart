@@ -7,12 +7,7 @@ import 'package:restaurant_app/common/navigation.dart';
 import 'package:restaurant_app/provider/preference_provider.dart';
 import 'package:restaurant_app/provider/scheduling_provider.dart';
 
-class RestaurantSettingPage extends StatefulWidget {
-  @override
-  _RestaurantSettingPage createState() => _RestaurantSettingPage();
-}
-
-class _RestaurantSettingPage extends State<RestaurantSettingPage> {
+class RestaurantSettingPage extends StatelessWidget {
   Widget _buildList(BuildContext context) {
     return Consumer<PreferenceProvider>(
       builder: (context, provider, _) {

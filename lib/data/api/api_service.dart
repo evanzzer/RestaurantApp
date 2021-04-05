@@ -6,7 +6,7 @@ import 'package:restaurant_app/data/model/restaurant_details.dart';
 
 class ApiService {
   final String baseUrl = 'https://restaurant-api.dicoding.dev/'; // Made public for testing purposes
-  http.Client _client = new http.Client(); // Made public for testing purposes
+  http.Client _client = http.Client(); // Made public for testing purposes
 
   http.Client get client => _client;
   void setClientForTest(http.Client client) {

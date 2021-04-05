@@ -14,7 +14,7 @@ class RestaurantSearchPage extends StatefulWidget {
 }
 
 class _RestaurantSearchPageState extends State<RestaurantSearchPage> {
-  TextEditingController _query = new TextEditingController();
+  TextEditingController _query = TextEditingController();
 
   _retrieveList(BuildContext context, SearchProvider state) {
     if (_query.text.isEmpty) {
